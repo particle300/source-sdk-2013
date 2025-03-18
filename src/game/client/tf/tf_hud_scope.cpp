@@ -174,17 +174,23 @@ void CHudScopeCharge::Paint( void )
 	if ( !pPlayer->m_Shared.InCond( TF_COND_ZOOMED ) )
 		return;
 
-	// Make sure the current weapon is a sniper rifle
-	CTFSniperRifle *pWeapon = assert_cast<CTFSniperRifle*>(pPlayer->GetActiveTFWeapon());
-	if ( !pWeapon )
+	CTFWeaponBase* pWeapon = pPlayer->GetActiveTFWeapon();
+	if (!pWeapon)
 		return;
 
-	if ( pWeapon->IsJarateRifle() && !m_bJarateMode )
+	bool IsJarateRifle = false;
+	if (WeaponID_IsSniperRifle(pWeapon->GetWeaponID()))
+	{
+		CTFSniperRifle* pSniperRifle = static_cast<CTFSniperRifle*>(pWeapon);
+		IsJarateRifle = pSniperRifle->IsJarateRifle();
+	}
+
+	if ( IsJarateRifle && !m_bJarateMode )
 	{
 		vgui::surface()->DrawSetTextureFile(m_iChargeupTexture, "HUD/sniperscope_numbers_jar", true, false);
 		m_bJarateMode = true;
 	}
-	else if ( !pWeapon->IsJarateRifle() && m_bJarateMode )
+	else if ( !IsJarateRifle && m_bJarateMode )
 	{
 		vgui::surface()->DrawSetTextureFile(m_iChargeupTexture, "HUD/sniperscope_numbers", true, false);
 		m_bJarateMode = false;

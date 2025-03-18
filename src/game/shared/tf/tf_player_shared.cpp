@@ -5675,6 +5675,9 @@ void CTFPlayerShared::OnAddHalloweenKartCage( void )
 	if ( !m_pOuter->m_hHalloweenKartCage )
 	{
 		m_pOuter->m_hHalloweenKartCage = C_PlayerAttachedModel::Create( "models/props_halloween/bumpercar_cage.mdl", m_pOuter, 0, vec3_origin, PAM_PERMANENT, 0 );
+		if (!m_pOuter->m_hHalloweenKartCage) 
+			return;
+		
 		m_pOuter->m_hHalloweenKartCage->FollowEntity( m_pOuter, true );
 	}
 #else

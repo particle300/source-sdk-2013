@@ -5799,7 +5799,10 @@ void C_TFPlayer::HalloweenBombHeadUpdate( void )
 		if ( !m_hHalloweenBombHat && gpGlobals->curtime > m_flBombDelay )
 		{
 			m_hHalloweenBombHat = C_PlayerAttachedModel::Create( BOMB_HAT_MODEL, this, LookupAttachment("head"), vec3_origin, PAM_PERMANENT, 0 );
-			m_hHalloweenBombHat->FollowEntity( this, true );
+			if (m_hHalloweenBombHat) 
+			{
+				m_hHalloweenBombHat->FollowEntity(this, true);
+			}
 		}
 
 		if ( m_hHalloweenBombHat )
